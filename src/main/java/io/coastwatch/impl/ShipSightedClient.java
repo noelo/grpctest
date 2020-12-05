@@ -1,5 +1,6 @@
 package io.coastwatch.impl;
 
+import io.coastwatch.grpc.Coastwatch;
 import io.coastwatch.grpc.Coastwatch.*;
 import io.coastwatch.grpc.ShipSightedSVCGrpc;
 import io.grpc.Channel;
@@ -15,7 +16,8 @@ public class ShipSightedClient  {
                             .usePlaintext()
                             .build());
 
-        x.ShipSighted("Clon","tinny");
+        AntiShipMunition mun = x.ShipSighted("Clon", "tinny");
+        System.out.println("Client : Munition received : Do something with it "+mun.toString());
 
     }
 
@@ -36,7 +38,7 @@ public class ShipSightedClient  {
             munition = blockingStub.notify(shipNotification);
         } catch (StatusRuntimeException e) {
             //This will return a null....so do some null checking
-            System.out.println("Well something shit the bed.....now what!!!!!");
+            System.out.println("Client : Well something shit the bed.....now what!!!!! "+e.getMessage());
         }
         return munition;
     }

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class ShipSightedServer extends ShipSightedSVCGrpc.ShipSightedSVCImplBase{
+
     private Server server;
 
     public ShipSightedServer(int port) {
@@ -59,7 +60,7 @@ public class ShipSightedServer extends ShipSightedSVCGrpc.ShipSightedSVCImplBase
      * Main method.  This comment makes the linter happy.
      */
     public static void main(String[] args) throws Exception {
-        ShipSightedServer server = new ShipSightedServer(8980);
+        ShipSightedServer server = new ShipSightedServer(32000);
         server.start();
         server.blockUntilShutdown();
     }
@@ -67,6 +68,7 @@ public class ShipSightedServer extends ShipSightedSVCGrpc.ShipSightedSVCImplBase
     @Override
     public void notify(io.coastwatch.grpc.Coastwatch.ShipSightedNotification request,
                        io.grpc.stub.StreamObserver<io.coastwatch.grpc.Coastwatch.AntiShipMunition> responseObserver){
+        System.out.println("Server : shipsighted "+request.toString());
         responseObserver.onNext(buildMunition(request));
         responseObserver.onCompleted();
     }
