@@ -1,0 +1,18 @@
+syntax = "proto3";
+package coastwatch;
+option java_package = "io.coastwatch.grpc";
+
+// ShipSighted RPC
+service ShipSightedSVC {
+  rpc notify (ShipSightedNotification) returns (AntiShipMunition) {}
+}
+
+message ShipSightedNotification {
+  string shipType = 1;
+  string location = 2;
+}
+
+message AntiShipMunition {
+  string munitionType = 1;
+}
+
